@@ -1,0 +1,29 @@
+services:
+  go:
+    build:
+      context: go
+    ports:
+      - 8080:8080
+    volumes:
+      - ./go:/app
+
+  mysql:
+    build:
+      context: mysql
+    ports:
+      - 3306:3306
+    env_file:
+      - .env
+    volumes:
+      - mysql:/var/lib/mysql
+
+  nginx:
+    build:
+      context: nginx
+    ports:
+      - 3000:3000
+    volumes:
+      - ./nginx/html:/var/www/html
+
+volumes:
+  mysql:
