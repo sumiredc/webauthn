@@ -62,7 +62,7 @@ func Register(c echo.Context, db *gorm.DB, wa *webauthn.WebAuthn) error {
 
 	txErr := db.Transaction(func(tx *gorm.DB) error {
 		uRepo := repository.NewUserRepository(tx)
-		wRepo := repository.NewCredentialRepository(tx)
+		cRepo := repository.NewCredentialRepository(tx)
 
 		var credential *webauthn.Credential
 		if cr, err := wa.FinishRegistration(sUser, *sessionData, c.Request()); err != nil {
@@ -80,7 +80,7 @@ func Register(c echo.Context, db *gorm.DB, wa *webauthn.WebAuthn) error {
 			user = u
 		}
 
-		if _, err := wRepo.Create(user.ID, credential); err != nil {
+		if _, err := cRepo.Create(user.ID, credential); err != nil {
 			log.Println("公開鍵の登録に失敗しました", err)
 			return err
 		}

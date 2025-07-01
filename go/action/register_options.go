@@ -45,7 +45,7 @@ func RegisterOptions(c echo.Context, db *gorm.DB, wa *webauthn.WebAuthn) error {
 	attestation := protocol.PreferNoAttestation
 
 	// Challenge の生成
-	options, session, err := wa.BeginRegistration(
+	options, sessionData, err := wa.BeginRegistration(
 		user,
 		webauthn.WithAuthenticatorSelection(authSelect),
 		webauthn.WithConveyancePreference(attestation),
@@ -56,7 +56,7 @@ func RegisterOptions(c echo.Context, db *gorm.DB, wa *webauthn.WebAuthn) error {
 		return registerOptionsErrResponse(c)
 	}
 
-	if j, err := json.Marshal(session); err != nil {
+	if j, err := json.Marshal(sessionData); err != nil {
 		log.Println("webauthn.SessionData の json 変換に失敗しました", err)
 		return registerOptionsErrResponse(c)
 	} else {

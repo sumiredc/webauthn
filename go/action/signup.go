@@ -14,7 +14,7 @@ import (
 )
 
 type SignUpRequest struct {
-	Username string `param:"username" json:"username" form:"username"`
+	Username string `json:"username"`
 }
 
 func SignUp(c echo.Context, db *gorm.DB, wa *webauthn.WebAuthn) error {

@@ -6,6 +6,8 @@ type User struct {
 	ID         uint64 `gorm:"column:id;primaryKey" json:"id"`
 	Username   string `gorm:"column:username" json:"username"`
 	UserHandle string `gorm:"column:user_handle" json:"user_handle"`
+
+	Credentials []webauthn.Credential `gorm:"-" json:"-"`
 }
 
 var _ webauthn.User = (*User)(nil)
@@ -27,5 +29,5 @@ func (u *User) WebAuthnDisplayName() string {
 }
 
 func (u *User) WebAuthnCredentials() []webauthn.Credential {
-	return []webauthn.Credential{}
+	return u.Credentials
 }

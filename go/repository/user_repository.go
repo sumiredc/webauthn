@@ -3,6 +3,7 @@ package repository
 import (
 	"wa/model"
 
+	"github.com/go-webauthn/webauthn/webauthn"
 	"gorm.io/gorm"
 )
 
@@ -42,4 +43,36 @@ func (r *UserRepository) Create(username, userHandle string) (*model.User, error
 	}
 
 	return user, r.db.Model(user).Create(user).Error
+}
+
+func (r *UserRepository) GetWithCredential(credentialID, userHandle string) (*model.User, error) {
+	type userWithCredential struct {
+		model.User
+		Credential webauthn.Credential `gorm:"column:json;serializer:json"`
+	}
+
+	uWithC := &userWithCredential{}
+
+	err := r.db.
+		Table(model.User{}.TableName()+" AS u").
+		Joins("INNER JOIN credential AS c ON u.id = c.user_id").
+		Where("c.credential_id = ?", credentialID).
+		Where("u.user_handle = ?", userHandle).
+		Select([]string{
+			"u.*",
+			"c.json",
+		}).
+		First(uWithC).
+		Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &model.User{
+		ID:          uWithC.ID,
+		Username:    uWithC.Username,
+		UserHandle:  uWithC.UserHandle,
+		Credentials: []webauthn.Credential{uWithC.Credential},
+	}, nil
 }

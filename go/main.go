@@ -41,6 +41,14 @@ func main() {
 		return action.Register(c, db, webAuthn)
 	})
 
+	e.GET("login_options", func(c echo.Context) error {
+		return action.LoginOptions(c, db, webAuthn)
+	})
+
+	e.POST("login", func(c echo.Context) error {
+		return action.Login(c, db, webAuthn)
+	})
+
 	// Error Handler
 	e.Start(":8080")
 }
