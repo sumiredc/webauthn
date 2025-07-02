@@ -48,7 +48,7 @@ func (r *UserRepository) Create(username, userHandle string) (*model.User, error
 func (r *UserRepository) GetWithCredential(credentialID, userHandle string) (*model.User, error) {
 	type userWithCredential struct {
 		model.User
-		Credential webauthn.Credential `gorm:"column:json;serializer:json"`
+		Credential webauthn.Credential `gorm:"column:data;serializer:json"`
 	}
 
 	uWithC := &userWithCredential{}
@@ -60,7 +60,7 @@ func (r *UserRepository) GetWithCredential(credentialID, userHandle string) (*mo
 		Where("u.user_handle = ?", userHandle).
 		Select([]string{
 			"u.*",
-			"c.json",
+			"c.data",
 		}).
 		First(uWithC).
 		Error

@@ -20,7 +20,7 @@ func (r *CredentialRepository) Create(userID uint64, c *webauthn.Credential) (*m
 	credential := &model.Credential{
 		CredentialID: base64.StdEncoding.EncodeToString(c.ID),
 		UserID:       userID,
-		Object:       *c,
+		Data:         *c,
 	}
 
 	return credential, r.db.
@@ -32,7 +32,7 @@ func (r *CredentialRepository) Create(userID uint64, c *webauthn.Credential) (*m
 func (r *CredentialRepository) Update(c *webauthn.Credential) (*model.Credential, error) {
 	credentialID := base64.StdEncoding.EncodeToString(c.ID)
 	credential := &model.Credential{
-		Object: *c,
+		Data: *c,
 	}
 
 	return credential, r.db.
