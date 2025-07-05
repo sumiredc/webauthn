@@ -2,7 +2,8 @@ package repository
 
 import (
 	"encoding/base64"
-	"wa/model"
+
+	"github.com/sumiredc/webauthn/model"
 
 	"github.com/go-webauthn/webauthn/webauthn"
 	"gorm.io/gorm"

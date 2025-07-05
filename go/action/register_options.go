@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"wa/model"
-	"wa/repository"
+
+	"github.com/sumiredc/webauthn/model"
+	"github.com/sumiredc/webauthn/repository"
 
 	"github.com/go-webauthn/webauthn/protocol"
 	"github.com/go-webauthn/webauthn/webauthn"

@@ -5,8 +5,9 @@ import (
 	"net/http"
 	"strings"
 	"time"
-	"wa/action"
-	"wa/env"
+
+	"github.com/sumiredc/webauthn/action"
+	"github.com/sumiredc/webauthn/env"
 
 	"github.com/go-webauthn/webauthn/webauthn"
 	"github.com/golang-jwt/jwt/v5"

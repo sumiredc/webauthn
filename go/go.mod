@@ -1,4 +1,4 @@
-module wa
+module github.com/sumiredc/webauthn
 
 go 1.24.4
 
@@ -9,7 +9,6 @@ require (
 	github.com/gorilla/sessions v1.4.0
 	github.com/labstack/echo-contrib v0.17.4
 	github.com/labstack/echo/v4 v4.13.4
-	gorm.io/datatypes v1.2.6
 	gorm.io/driver/mysql v1.6.0
 	gorm.io/gorm v1.30.0
 )

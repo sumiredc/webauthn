@@ -7,9 +7,10 @@ import (
 	"net/http"
 	"strconv"
 	"time"
-	"wa/env"
-	"wa/model"
-	"wa/repository"
+
+	"github.com/sumiredc/webauthn/env"
+	"github.com/sumiredc/webauthn/model"
+	"github.com/sumiredc/webauthn/repository"
 
 	"github.com/go-webauthn/webauthn/webauthn"
 	"github.com/golang-jwt/jwt/v5"

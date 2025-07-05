@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"wa/model"
+	"github.com/sumiredc/webauthn/model"
 
 	"github.com/go-webauthn/webauthn/webauthn"
 	"gorm.io/gorm"
